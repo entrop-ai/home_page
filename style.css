@@ -366,12 +366,14 @@ footer {
     font-family: inherit;
     padding: 0;
     border-radius: 3rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    width: auto;
+    margin: 0 auto;
 }
 
 #contact-form button.send:hover {
@@ -380,31 +382,27 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-
 #contact-form button.send .text {
-    padding: 0.8rem 1rem 0.8rem 1.5rem;
-    line-height: 1.5rem;
+    padding: 0.6rem 0.8rem 0.6rem 1.2rem;
+    line-height: 1.2rem;
 }
 
 #contact-form button.send .icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 0.3rem;
-    margin-bottom: 0.3rem;
-    margin-left: 0.5rem;
-    margin-right: 0.8rem;
-    padding: 0.5rem;
+    margin: 0.2rem 0.6rem 0.2rem 0.3rem;
+    padding: 0.4rem;
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     line-height: 0;
 }
 
 #contact-form button.send .icon svg {
     fill: var(--text-color);
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.2rem;
+    height: 1.2rem;
     transition: transform 0.4s ease-out;
 }
