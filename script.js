@@ -89,17 +89,37 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', changeNavOnScroll);
     changeNavOnScroll(); // Initial call to set active link on page load
 
-    // Fade-in animations on scroll
-    const fadeElements = document.querySelectorAll('section > *:not(h2), section > div > *:not(h2)');
-    // Select direct children of sections or children of direct div containers within sections for animation
+    // Fade-in animations on scroll - REVISED LOGIC
+    // Step 1: Add 'fade-in' class to all elements intended for animation.
+    sections.forEach(section => {
+        const directChildren = Array.from(section.children);
+        directChildren.forEach(child => {
+            if (child.tagName !== 'H2') { // Don't fade section titles immediately
+                if (child.classList.contains('overview-content') ||
+                    child.classList.contains('team-container') ||
+                    child.id === 'contact-form' ||
+                    child.classList.contains('alternative-contact') ||
+                    child.classList.contains('hero-content')) {
+                    // For these specific containers, apply fade-in to their children
+                    Array.from(child.children).forEach(innerChild => {
+                        if (innerChild.classList) { // Ensure it's an element
+                            innerChild.classList.add('fade-in');
+                        }
+                    });
+                } else {
+                    // For other direct children of the section
+                    child.classList.add('fade-in');
+                }
+            }
+        });
+    });
 
+    // Step 2: Select all elements that now have the 'fade-in' class.
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    // Step 3: Define the function to make them visible when they scroll into view.
     function checkFadeElements() {
         fadeElements.forEach(el => {
-            // Add 'fade-in' class if not already present, so CSS can handle initial state
-            if (!el.classList.contains('fade-in')) {
-                el.classList.add('fade-in');
-            }
-
             const elementTop = el.getBoundingClientRect().top;
             const windowHeight = window.innerHeight;
             // Trigger when element is a bit into the viewport
@@ -108,32 +128,17 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Optional: remove 'visible' class if element scrolls out of view from the top
                 // This creates a re-fading effect if you scroll up and down
-                // if (elementTop > windowHeight) { 
+                // if (elementTop > windowHeight) {
                 //     el.classList.remove('visible');
                 // }
             }
         });
     }
 
-    // Add fade-in class to all sections to make them initially hidden
-    sections.forEach(section => {
-        // Apply to section itself if we want the whole section to fade
-        // section.classList.add('fade-in');
-        // Or apply to children as currently implemented
-        const directChildren = Array.from(section.children);
-        directChildren.forEach(child => {
-            if (child.tagName !== 'H2') { // Don't fade section titles immediately
-                if (child.classList.contains('overview-content') || child.classList.contains('team-container') || child.id === 'contact-form' || child.classList.contains('alternative-contact') || child.classList.contains('hero-content')) {
-                    Array.from(child.children).forEach(innerChild => innerChild.classList.add('fade-in'));
-                } else {
-                    child.classList.add('fade-in');
-                }
-            }
-        });
-    });
-
+    // Step 4: Attach scroll listener and run an initial check.
     window.addEventListener('scroll', checkFadeElements);
     checkFadeElements(); // Initial check on page load
+    // End of REVISED Fade-in animations on scroll logic
 
     // Hero Canvas Particle Animation
     const canvas = document.getElementById('hero-canvas');
