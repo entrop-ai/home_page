@@ -135,4 +135,89 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', checkFadeElements);
     checkFadeElements(); // Initial check on page load
 
+    // Hero Canvas Particle Animation
+    const canvas = document.getElementById('hero-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particlesArray;
+
+        // Set canvas dimensions
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = document.getElementById('hero').offsetHeight; // Match hero section height
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Particle class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                if (this.x + this.size > canvas.width || this.x - this.size < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y + this.size > canvas.height || this.y - this.size < 0) {
+                    this.directionY = -this.directionY;
+                }
+                this.x += this.directionX;
+                this.y += this.directionY;
+                this.draw();
+            }
+        }
+
+        // Create particle array
+        function initParticles() {
+            particlesArray = [];
+            const numberOfParticles = (canvas.height * canvas.width) / 9000; // Adjust density
+            const colors = ['rgba(106, 13, 173, 0.3)', 'rgba(106, 13, 173, 0.5)', 'rgba(255, 255, 255, 0.2)', 'rgba(128, 0, 128, 0.4)']; // Shades of purple and white, with alpha
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const size = Math.random() * 3 + 1; // Particle size (1 to 4)
+                const x = Math.random() * (canvas.width - size * 2) + size;
+                const y = Math.random() * (canvas.height - size * 2) + size;
+                const directionX = (Math.random() * .4) - .2; // Slow movement
+                const directionY = (Math.random() * .4) - .2; // Slow movement
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Animation loop
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+        }
+
+        initParticles();
+        animateParticles();
+
+        // Re-initialize particles if hero section height changes (e.g. due to window resize affecting content flow indirectly)
+        // This is a simple way, a more robust solution might use ResizeObserver on the #hero element.
+        let heroHeight = document.getElementById('hero').offsetHeight;
+        setInterval(() => {
+            if (document.getElementById('hero').offsetHeight !== heroHeight) {
+                heroHeight = document.getElementById('hero').offsetHeight;
+                resizeCanvas(); // Ensure canvas dimensions are updated
+                initParticles(); // Recreate particles for new dimensions
+            }
+        }, 1000);
+    }
 }); 

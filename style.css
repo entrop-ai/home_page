@@ -94,6 +94,27 @@ section h2 {
     text-align: center;
     padding: 0 2rem;
     /* Remove default section padding if it causes overflow */
+    position: relative;
+    /* Added for canvas positioning */
+    overflow: hidden;
+    /* To contain particles within the hero section */
+}
+
+#hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /* Behind hero content */
+}
+
+#hero .hero-content {
+    position: relative;
+    /* Ensure content is above canvas */
+    z-index: 2;
+    /* Above canvas */
 }
 
 #hero h1 {
