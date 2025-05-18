@@ -3,6 +3,9 @@
     --text-color: #FFFFFF;
     --background-color: #000000;
     --section-padding: 4rem 2rem;
+    --gradient-orange: #FF8C00;
+    --gradient-purple: #9370DB;
+    --gradient-blue: #1E90FF;
 }
 
 body {
@@ -77,8 +80,13 @@ section {
 
 section h2 {
     font-size: 2.5em;
-    color: var(--primary-purple);
     margin-bottom: 2rem;
+    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback for browsers that don't support background-clip: text */
 }
 
 /* Hero Section */
@@ -120,8 +128,14 @@ section h2 {
 #hero h1 {
     font-size: 4.5em;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
-    /* White text for title */
+    /* color: var(--text-color); */
+    /* Replaced by gradient */
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback for browsers that don't support background-clip: text */
 }
 
 #hero p {
