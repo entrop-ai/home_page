@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent actual submission for this example
+            // e.preventDefault(); // Prevent actual submission for this example - We will now control this based on validation
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             let isValid = true;
@@ -41,9 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
 
-            if (isValid) {
-                alert('Form submitted successfully! (This is a demo)');
-                contactForm.reset();
+            if (!isValid) {
+                e.preventDefault(); // Prevent submission if validation fails
+            } else {
+                // If valid, the form will submit naturally, triggering the mailto:
+                // No need for contactForm.reset(); as the email client will take over.
             }
         });
     }
