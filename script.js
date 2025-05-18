@@ -24,9 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
-            // e.preventDefault(); // Prevent actual submission for this example - We will now control this based on validation
-            const email = document.getElementById('email').value.trim();
-            const message = document.getElementById('message').value.trim();
+            e.preventDefault(); // Always prevent default submission now
+
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+            const email = emailInput.value.trim();
+            const message = messageInput.value.trim();
             let isValid = true;
 
             if (email === '') {
@@ -41,12 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             }
 
-            if (!isValid) {
-                e.preventDefault(); // Prevent submission if validation fails
-            } else {
-                // If valid, the form will submit naturally, triggering the mailto:
-                // No need for contactForm.reset(); as the email client will take over.
+            if (isValid) {
+                const recipientEmail = 'contact@entropai.com';
+                const subject = `Inquiry from EntropAI Website - from: ${email}`;
+                const body = message;
+
+                // Encode components for the mailto URL
+                const mailtoLink = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+                window.location.href = mailtoLink;
+                contactForm.reset(); // Reset the form after attempting to open email client
             }
+            // If not valid, alerts are shown and nothing else happens due to preventDefault earlier
         });
     }
 
