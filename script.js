@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (isValid) {
-                const recipientEmail = 'contact@entropai.com';
+                const recipientEmail = 'entropaisk@gmail.co';
                 const subject = `Inquiry from EntropAI Website - from: ${email}`;
                 const body = message;
 
