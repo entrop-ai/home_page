@@ -25,15 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault(); // Prevent actual submission for this example
-            const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const message = document.getElementById('message').value.trim();
             let isValid = true;
 
-            if (name === '') {
-                alert('Please enter your name.');
-                isValid = false;
-            }
             if (email === '') {
                 alert('Please enter your email.');
                 isValid = false;
@@ -224,5 +219,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 initParticles(); // Recreate particles for new dimensions
             }
         }, 1000);
+    }
+
+    // GSAP animation for the new send button
+    // IMPORTANT: Make sure to include the GSAP library in your HTML for this to work.
+    // e.g., <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    const sendButton = document.getElementById('send-button');
+    if (sendButton) {
+        sendButton.addEventListener('click', (e) => {
+            // The button is type="submit", so it will trigger the form's submit event.
+            // The form's submit handler already has e.preventDefault() for demo purposes.
+            // If that changes, and the form actually submits and navigates, 
+            // the animation might be cut short.
+
+            // Check if GSAP is available
+            if (typeof gsap !== 'undefined') {
+                const iconSvg = sendButton.querySelector('.icon svg');
+                gsap.timeline({
+                    onComplete: () => {
+                        // Animation complete. Form submission logic will proceed as per the form's event listener.
+                    }
+                })
+                    .to(iconSvg, {
+                        duration: 0.4,
+                        x: -8,
+                        y: 8,
+                        ease: 'power1.out' // Added an ease
+                    })
+                    .to(iconSvg, {
+                        duration: 0.4,
+                        x: '50vw',
+                        y: '-50vh',
+                        ease: 'power2.in' // Added an ease
+                    })
+                    .set(iconSvg, {
+                        x: '-50vw',
+                        y: '50vh'
+                    })
+                    .to(iconSvg, {
+                        duration: 0.3,
+                        x: 0,
+                        y: 0,
+                        ease: 'power1.out' // Added an ease
+                    });
+            } else {
+                console.warn('GSAP library is not loaded. Button animation will not play.');
+            }
+        });
     }
 }); 
