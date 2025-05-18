@@ -127,7 +127,7 @@ section h2 {
 }
 
 #hero h1 {
-    font-size: 4.5em;
+    font-size: 5.5em;
     margin-bottom: 0.5rem;
     /* color: var(--text-color); */
     /* Replaced by gradient */
@@ -151,7 +151,7 @@ section h2 {
 }
 
 #hero p {
-    font-size: 1.5em;
+    font-size: 1.7em;
     max-width: 700px;
     color: #ccc;
     /* Lighter gray for subtitle */
