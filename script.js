@@ -152,23 +152,48 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
         let particlesArray;
 
+        // Mouse object for interactivity
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 100 // Interaction radius in pixels (hover area around cursor)
+        };
+
+        canvas.addEventListener('mousemove', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = event.clientX - rect.left;
+            mouse.y = event.clientY - rect.top;
+        });
+
+        canvas.addEventListener('mouseleave', () => { // Changed from mouseout for better canvas edge detection
+            mouse.x = null;
+            mouse.y = null;
+        });
+
         // Set canvas dimensions
         function resizeCanvas() {
             canvas.width = window.innerWidth;
-            canvas.height = document.getElementById('hero').offsetHeight; // Match hero section height
+            // Ensure hero element exists before trying to get its offsetHeight
+            const heroElement = document.getElementById('hero');
+            if (heroElement) {
+                canvas.height = heroElement.offsetHeight; // Match hero section height
+            } else {
+                canvas.height = window.innerHeight; // Fallback if hero not found
+            }
         }
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
         // Particle class
         class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
+            constructor(x, y, directionX, directionY, size, color, layer) {
                 this.x = x;
                 this.y = y;
                 this.directionX = directionX;
                 this.directionY = directionY;
                 this.size = size;
                 this.color = color;
+                this.layer = layer; // 'background' or 'foreground'
             }
 
             draw() {
@@ -179,32 +204,83 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             update() {
+                // Boundary check (bounce off edges)
                 if (this.x + this.size > canvas.width || this.x - this.size < 0) {
                     this.directionX = -this.directionX;
                 }
                 if (this.y + this.size > canvas.height || this.y - this.size < 0) {
                     this.directionY = -this.directionY;
                 }
+
+                // Mouse interactivity: Repel particles
+                if (mouse.x !== null && mouse.y !== null) {
+                    let dxMouse = this.x - mouse.x;
+                    let dyMouse = this.y - mouse.y;
+                    let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+
+                    let interactionRadius = mouse.radius;
+                    // Adjust repel strength based on layer
+                    let repelFactor = this.layer === 'foreground' ? 2.5 : 1.0;
+
+                    if (distanceMouse < interactionRadius) {
+                        let forceDirectionX = dxMouse / distanceMouse;
+                        let forceDirectionY = dyMouse / distanceMouse;
+
+                        // Force is stronger when closer to the mouse
+                        let force = (interactionRadius - distanceMouse) / interactionRadius;
+
+                        this.x += forceDirectionX * force * repelFactor;
+                        this.y += forceDirectionY * force * repelFactor;
+
+                        // Prevent particles from being pushed completely out of bounds by mouse
+                        if (this.x + this.size > canvas.width) this.x = canvas.width - this.size;
+                        if (this.x - this.size < 0) this.x = this.size;
+                        if (this.y + this.size > canvas.height) this.y = canvas.height - this.size;
+                        if (this.y - this.size < 0) this.y = this.size;
+                    }
+                }
+
+                // Move particle based on its direction and speed
                 this.x += this.directionX;
                 this.y += this.directionY;
+
                 this.draw();
             }
         }
 
-        // Create particle array
+        // Create particle array with layers
         function initParticles() {
             particlesArray = [];
-            const numberOfParticles = (canvas.height * canvas.width) / 9000; // Adjust density
-            const colors = ['rgba(106, 13, 173, 0.3)', 'rgba(106, 13, 173, 0.5)', 'rgba(255, 255, 255, 0.2)', 'rgba(128, 0, 128, 0.4)']; // Shades of purple and white, with alpha
+            // Adjust density: lower number means more particles
+            const totalNumberOfParticles = (canvas.height * canvas.width) / 8000;
 
-            for (let i = 0; i < numberOfParticles; i++) {
-                const size = Math.random() * 3 + 1; // Particle size (1 to 4)
+            const numBackgroundParticles = Math.floor(totalNumberOfParticles * 0.35); // 35% for background
+            const numForegroundParticles = totalNumberOfParticles - numBackgroundParticles; // 65% for foreground
+
+            // Colors with varied alpha for depth
+            const bgColors = ['rgba(106, 13, 173, 0.15)', 'rgba(106, 13, 173, 0.25)', 'rgba(255, 255, 255, 0.1)', 'rgba(128, 0, 128, 0.2)'];
+            const fgColors = ['rgba(106, 13, 173, 0.35)', 'rgba(106, 13, 173, 0.55)', 'rgba(255, 255, 255, 0.25)', 'rgba(128, 0, 128, 0.45)'];
+
+            // Background particles (larger, slower)
+            for (let i = 0; i < numBackgroundParticles; i++) {
+                const size = Math.random() * 3 + 3.5; // Size: 3.5 to 6.5
                 const x = Math.random() * (canvas.width - size * 2) + size;
                 const y = Math.random() * (canvas.height - size * 2) + size;
-                const directionX = (Math.random() * .4) - .2; // Slow movement
-                const directionY = (Math.random() * .4) - .2; // Slow movement
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+                const directionX = (Math.random() * 0.2) - 0.1; // Slower: -0.1 to 0.1 px/frame
+                const directionY = (Math.random() * 0.2) - 0.1;
+                const color = bgColors[Math.floor(Math.random() * bgColors.length)];
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color, 'background'));
+            }
+
+            // Foreground particles (smaller, faster)
+            for (let i = 0; i < numForegroundParticles; i++) {
+                const size = Math.random() * 2 + 1; // Size: 1 to 3
+                const x = Math.random() * (canvas.width - size * 2) + size;
+                const y = Math.random() * (canvas.height - size * 2) + size;
+                const directionX = (Math.random() * 0.7) - 0.35; // Faster: -0.35 to 0.35 px/frame
+                const directionY = (Math.random() * 0.7) - 0.35;
+                const color = fgColors[Math.floor(Math.random() * fgColors.length)];
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color, 'foreground'));
             }
         }
 
@@ -220,14 +296,15 @@ document.addEventListener('DOMContentLoaded', () => {
         initParticles();
         animateParticles();
 
-        // Re-initialize particles if hero section height changes (e.g. due to window resize affecting content flow indirectly)
-        // This is a simple way, a more robust solution might use ResizeObserver on the #hero element.
-        let heroHeight = document.getElementById('hero').offsetHeight;
+        // Re-initialize particles if hero section height changes significantly
+        let heroHeight = document.getElementById('hero') ? document.getElementById('hero').offsetHeight : window.innerHeight;
         setInterval(() => {
-            if (document.getElementById('hero').offsetHeight !== heroHeight) {
-                heroHeight = document.getElementById('hero').offsetHeight;
-                resizeCanvas(); // Ensure canvas dimensions are updated
-                initParticles(); // Recreate particles for new dimensions
+            const currentHeroElement = document.getElementById('hero');
+            const currentHeroHeight = currentHeroElement ? currentHeroElement.offsetHeight : window.innerHeight;
+            if (Math.abs(currentHeroHeight - heroHeight) > 50) { // Check for significant change
+                heroHeight = currentHeroHeight;
+                resizeCanvas();
+                initParticles();
             }
         }, 1000);
     }
