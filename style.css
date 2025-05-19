@@ -266,9 +266,46 @@ section h2 {
 
 /* Overview Section */
 #overview .overview-content {
-    max-width: 900px;
+    max-width: 1200px;
+    /* Increased for grid layout */
     margin: 0 auto;
     text-align: left;
+    /* Content within (like paragraphs) will be left-aligned */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* Style for introductory paragraphs in the overview section */
+#overview .overview-content>p:first-of-type {
+    grid-column: 1 / -1;
+    /* Span full width of the grid */
+    font-size: 1.6em;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    /* Space between the two paragraphs */
+    text-align: center;
+}
+
+#overview .overview-content>p:first-of-type strong {
+    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback */
+    font-weight: 700;
+    /* Ensure it's appropriately bold */
+}
+
+#overview .overview-content>p:nth-of-type(2) {
+    grid-column: 1 / -1;
+    /* Span full width of the grid */
+    font-size: 1.25em;
+    line-height: 1.8;
+    color: #f0f0f0;
+    margin-bottom: 3.5rem;
+    text-align: center;
 }
 
 #overview h3 {
@@ -284,6 +321,63 @@ section h2 {
 
 #overview ul li {
     margin-bottom: 0.5rem;
+}
+
+/* Enhancements for Overview Section Cards */
+#overview .overview-card {
+    background-color: #24242c;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-top: 3px solid transparent;
+}
+
+#overview .overview-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(147, 112, 219, 0.35);
+    border-top-color: var(--gradient-purple);
+    border-image-source: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    border-image-slice: 1;
+    border-image-width: 3px 0 0 0;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+}
+
+#overview .overview-card h3 {
+    font-size: 1.9em;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--gradient-purple);
+}
+
+#overview .overview-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    flex-grow: 1;
+}
+
+#overview .overview-card ul li {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+#overview .overview-card ul li::before {
+    content: '✓';
+    color: var(--gradient-blue);
+    position: absolute;
+    left: 0.25rem;
+    top: 0;
+    font-weight: bold;
+    font-size: 1.3em;
+    line-height: inherit;
 }
 
 /* Meet the Team Section */
