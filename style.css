@@ -301,12 +301,10 @@ section h2 {
 #overview .overview-content>p:nth-of-type(2) {
     grid-column: 1 / -1;
     /* Span full width of the grid */
-    font-size: 1.2em;
-    line-height: 1.7;
-    color: #e0e0e0;
-    /* Lighter gray for the descriptive paragraph */
-    margin-bottom: 3rem;
-    /* More space before cards */
+    font-size: 1.25em;
+    line-height: 1.8;
+    color: #f0f0f0;
+    margin-bottom: 3.5rem;
     text-align: center;
 }
 
@@ -327,73 +325,59 @@ section h2 {
 
 /* Enhancements for Overview Section Cards */
 #overview .overview-card {
-    background-color: #1a1a1a;
-    /* Matches other card-like elements */
+    background-color: #24242c;
     padding: 2rem;
-    border-radius: 10px;
-    /* margin-top: 2rem; */
-    /* Removed, rely on grid gap and paragraph margin-bottom */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
     display: flex;
     flex-direction: column;
+    border-top: 3px solid transparent;
 }
 
 #overview .overview-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
-    /* Subtle purple glow on hover */
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(147, 112, 219, 0.35);
+    border-top-color: var(--gradient-purple);
+    border-image-source: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    border-image-slice: 1;
+    border-image-width: 3px 0 0 0;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
 }
 
 #overview .overview-card h3 {
-    /* color is already var(--primary-purple) from existing #overview h3 */
-    /* font-size is already 1.8em from existing #overview h3 */
+    font-size: 1.9em;
     margin-top: 0;
-    /* Card padding handles top spacing */
-    margin-bottom: 1rem;
-    /* Space between heading and list */
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--primary-purple);
-    /* Accent line */
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--gradient-purple);
 }
 
 #overview .overview-card ul {
     list-style: none;
-    /* Remove default disc bullets */
     padding-left: 0;
-    /* Reset padding */
     margin-left: 0;
-    /* Reset margin */
     margin-bottom: 0;
-    /* Card padding will give bottom space */
     flex-grow: 1;
-    /* Allows ul to take available space if card height varies */
 }
 
 #overview .overview-card ul li {
     margin-bottom: 1rem;
-    /* Increased spacing between list items */
     padding-left: 2rem;
-    /* Space for custom bullet and text indentation */
     position: relative;
     line-height: 1.6;
-    /* Good for readability of multi-line items */
 }
 
 #overview .overview-card ul li::before {
     content: '✓';
-    /* Unicode checkmark; consider an SVG for more complex icons */
-    color: var(--primary-purple);
+    color: var(--gradient-blue);
     position: absolute;
     left: 0.25rem;
-    /* Position of the checkmark */
-    top: 0.05em;
-    /* Fine-tune vertical alignment */
+    top: 0;
     font-weight: bold;
-    font-size: 1.2em;
-    /* Size of the checkmark */
+    font-size: 1.3em;
     line-height: inherit;
-    /* Helps with alignment */
 }
 
 /* Meet the Team Section */
