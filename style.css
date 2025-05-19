@@ -284,6 +284,7 @@ section h2 {
     color: var(--text-color);
     margin-bottom: 1rem;
     /* Space between the two paragraphs */
+    text-align: center;
 }
 
 #overview .overview-content>p:first-of-type strong {
@@ -306,6 +307,7 @@ section h2 {
     /* Lighter gray for the descriptive paragraph */
     margin-bottom: 3rem;
     /* More space before cards */
+    text-align: center;
 }
 
 #overview h3 {
