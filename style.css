@@ -286,6 +286,73 @@ section h2 {
     margin-bottom: 0.5rem;
 }
 
+/* Enhancements for Overview Section Cards */
+#overview .overview-card {
+    background-color: #1a1a1a;
+    /* Matches other card-like elements */
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+    /* Space above each card */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#overview .overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
+    /* Subtle purple glow on hover */
+}
+
+#overview .overview-card h3 {
+    /* color is already var(--primary-purple) from existing #overview h3 */
+    /* font-size is already 1.8em from existing #overview h3 */
+    margin-top: 0;
+    /* Card padding handles top spacing */
+    margin-bottom: 1rem;
+    /* Space between heading and list */
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-purple);
+    /* Accent line */
+}
+
+#overview .overview-card ul {
+    list-style: none;
+    /* Remove default disc bullets */
+    padding-left: 0;
+    /* Reset padding */
+    margin-left: 0;
+    /* Reset margin */
+    margin-bottom: 0;
+    /* Card padding will give bottom space */
+}
+
+#overview .overview-card ul li {
+    margin-bottom: 1rem;
+    /* Increased spacing between list items */
+    padding-left: 2rem;
+    /* Space for custom bullet and text indentation */
+    position: relative;
+    line-height: 1.6;
+    /* Good for readability of multi-line items */
+}
+
+#overview .overview-card ul li::before {
+    content: '✓';
+    /* Unicode checkmark; consider an SVG for more complex icons */
+    color: var(--primary-purple);
+    position: absolute;
+    left: 0.25rem;
+    /* Position of the checkmark */
+    top: 0.05em;
+    /* Fine-tune vertical alignment */
+    font-weight: bold;
+    font-size: 1.2em;
+    /* Size of the checkmark */
+    line-height: inherit;
+    /* Helps with alignment */
+}
+
 /* Meet the Team Section */
 #team .team-container {
     display: flex;
