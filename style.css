@@ -114,7 +114,7 @@ section {
 section h2 {
     font-size: 2.5em;
     margin-bottom: 2rem;
-    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    background-image: linear-gradient(to right, var(--gradient-purple), #A47EEA, var(--gradient-purple));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
