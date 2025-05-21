@@ -114,7 +114,7 @@ section {
 section h2 {
     font-size: 2.5em;
     margin-bottom: 2rem;
-    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    background-image: linear-gradient(to right, var(--gradient-purple), #A47EEA, var(--gradient-purple));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -352,6 +352,13 @@ section h2 {
     margin-bottom: 1.2rem;
     padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--gradient-purple);
+    /* Changed for a lighter purple gradient */
+    background-image: linear-gradient(to right, var(--gradient-purple), #A47EEA, var(--gradient-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback */
 }
 
 #overview .overview-card ul {
@@ -506,7 +513,65 @@ footer {
 }
 
 /* Responsive Design */
+/* Tablet-specific styles */
+@media (max-width: 1024px) {
+    body {
+        /* Assuming header height doesn't drastically change for tablets, 
+           or JS handles scroll offset correctly. 
+           padding-top might need adjustment if header changes height here. */
+    }
+
+    #main-header {
+        padding: 1rem 1.5rem;
+        /* Slightly reduce side padding */
+    }
+
+    #main-header nav ul li a {
+        padding: 0.5rem 0.8rem;
+        /* Slightly reduce nav item padding */
+    }
+
+    section {
+        padding: 3rem 1.5rem;
+    }
+
+    section h2 {
+        font-size: 2.2em;
+    }
+
+    #hero h1 {
+        font-size: 4.5em;
+    }
+
+    #hero p {
+        font-size: 1.5em;
+    }
+
+    .cta-button {
+        font-size: 1em;
+        padding: 0.7rem 1.8rem;
+    }
+
+    #overview .overview-content>p:first-of-type {
+        font-size: 1.4em;
+    }
+
+    #overview .overview-content>p:nth-of-type(2) {
+        font-size: 1.15em;
+    }
+}
+
 @media (max-width: 768px) {
+    body {
+        padding-top: 202px;
+        /* Adjusted for taller stacked header */
+    }
+
+    #main-header {
+        padding: 0.8rem 1rem;
+        /* More compact header on mobile */
+    }
+
     #main-header nav {
         flex-direction: column;
         align-items: center;
@@ -528,18 +593,28 @@ footer {
         display: block;
         text-align: center;
         min-width: 200px;
+        padding: 0.5rem 1rem;
+        /* Keep or adjust as needed, original was just display block */
     }
 
     #hero h1 {
-        font-size: 3em;
+        font-size: 2.8em;
+        /* Further refined from 3em */
     }
 
     #hero p {
-        font-size: 1.2em;
+        font-size: 1.1em;
+        /* Further refined from 1.2em */
+    }
+
+    section {
+        padding: 2rem 1rem;
+        /* Further reduce section padding for mobile */
     }
 
     section h2 {
-        font-size: 2em;
+        font-size: 1.8em;
+        /* Further refined from 2em */
     }
 
     .team-member {
@@ -563,6 +638,18 @@ footer {
         /* Make buttons wider on mobile */
         max-width: 300px;
         text-align: center;
+        font-size: 0.9em;
+        /* Smaller font for CTA buttons on mobile */
+        padding: 0.6rem 1.5rem;
+        /* Smaller padding for CTA buttons on mobile */
+    }
+
+    #overview .overview-content>p:first-of-type {
+        font-size: 1.3em;
+    }
+
+    #overview .overview-content>p:nth-of-type(2) {
+        font-size: 1em;
     }
 }
 
@@ -636,4 +723,26 @@ footer {
     width: 1.5rem;
     height: 1.5rem;
     transition: transform 0.4s ease-out;
+}
+
+.gradient-text {
+    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback for browsers that don't support background-clip: text */
+}
+
+/* Styles for non-strong text within a .gradient-text paragraph to remain the standard color */
+p.gradient-text>span {
+    background-image: none;
+    -webkit-background-clip: initial;
+    /* Reset clipping */
+    background-clip: initial;
+    /* Reset clipping */
+    -webkit-text-fill-color: var(--text-color);
+    /* Fill with solid color */
+    color: var(--text-color);
+    /* Standard color property for fallback & non-webkit */
 }
