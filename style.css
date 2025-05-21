@@ -352,6 +352,13 @@ section h2 {
     margin-bottom: 1.2rem;
     padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--gradient-purple);
+    /* Changed for a lighter purple gradient */
+    background-image: linear-gradient(to right, var(--gradient-purple), #A47EEA, var(--gradient-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback */
 }
 
 #overview .overview-card ul {
