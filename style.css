@@ -637,3 +637,25 @@ footer {
     height: 1.5rem;
     transition: transform 0.4s ease-out;
 }
+
+.gradient-text {
+    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Fallback for browsers that don't support background-clip: text */
+}
+
+/* Styles for non-strong text within a .gradient-text paragraph to remain the standard color */
+p.gradient-text>span {
+    background-image: none;
+    -webkit-background-clip: initial;
+    /* Reset clipping */
+    background-clip: initial;
+    /* Reset clipping */
+    -webkit-text-fill-color: var(--text-color);
+    /* Fill with solid color */
+    color: var(--text-color);
+    /* Standard color property for fallback & non-webkit */
+}
