@@ -36,7 +36,7 @@ html {
     box-sizing: border-box;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 #main-header.scrolled {
@@ -45,7 +45,7 @@ html {
 
 #main-header nav {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -54,7 +54,17 @@ html {
 #main-header .logo {
     font-size: 1.8em;
     font-weight: bold;
+    text-decoration: none;
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: var(--primary-purple);
+    transition: transform 0.3s ease;
+}
+
+#main-header .logo:hover {
+    transform: scale(1.05);
 }
 
 #main-header nav ul {
@@ -540,19 +550,16 @@ footer {
 /* Tablet-specific styles */
 @media (max-width: 1024px) {
     body {
-        /* Assuming header height doesn't drastically change for tablets, 
-           or JS handles scroll offset correctly. 
-           padding-top might need adjustment if header changes height here. */
+        padding-top: 70px;
+        /* Consistent header height */
     }
 
     #main-header {
-        padding: 1rem 1.5rem;
-        /* Slightly reduce side padding */
+        padding: 0.8rem 1.5rem;
     }
 
     #main-header nav ul li a {
         padding: 0.5rem 0.8rem;
-        /* Slightly reduce nav item padding */
     }
 
     section {
@@ -587,38 +594,66 @@ footer {
 
 @media (max-width: 768px) {
     body {
-        padding-top: 202px;
-        /* Adjusted for taller stacked header */
+        padding-top: 70px;
+        /* Reduced from 202px to be more mobile-friendly */
     }
 
     #main-header {
         padding: 0.8rem 1rem;
-        /* More compact header on mobile */
     }
 
-    #main-header nav {
-        flex-direction: column;
-        align-items: center;
+    .menu-toggle {
+        display: flex;
+        /* Show hamburger on mobile */
     }
 
     #main-header nav ul {
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        top: 0;
+        right: -100%;
+        /* Hide off-screen initially */
+        height: 100vh;
+        width: 70%;
+        max-width: 300px;
         flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
-        align-items: center;
+        padding-top: 70px;
+        /* Space for header */
+        transition: right 0.3s ease;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+    }
+
+    #main-header nav ul.active {
+        right: 0;
+        /* Slide in when active */
     }
 
     #main-header nav ul li {
-        margin: 0 0 0.5rem 0;
-        width: auto;
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
     }
 
     #main-header nav ul li a {
         display: block;
-        text-align: center;
-        min-width: 200px;
-        padding: 0.5rem 1rem;
-        /* Keep or adjust as needed, original was just display block */
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    /* When menu is open, transform hamburger to X */
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
     }
 
     #hero h1 {
@@ -673,6 +708,26 @@ footer {
     }
 
     #overview .overview-content>p:nth-of-type(2) {
+        font-size: 1em;
+    }
+
+    #main-header .logo {
+        font-size: 1.5em;
+        /* Smaller on mobile */
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    #main-header nav ul {
+        width: 85%;
+    }
+
+    #hero h1 {
+        font-size: 2.5em;
+    }
+
+    #hero p {
         font-size: 1em;
     }
 }
@@ -769,4 +824,28 @@ p.gradient-text>span {
     /* Fill with solid color */
     color: var(--text-color);
     /* Standard color property for fallback & non-webkit */
+}
+
+/* Hamburger menu icon */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: var(--text-color);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Prevent scrolling when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
 }
