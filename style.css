@@ -537,6 +537,14 @@ section h2 {
     text-decoration: underline;
 }
 
+/* Add this to reduce the empty space below the contact section */
+#contact {
+    min-height: auto;
+    /* Override the default section min-height */
+    padding-bottom: 4rem;
+    /* Ensure some padding remains, adjust as needed */
+}
+
 /* Footer */
 footer {
     text-align: center;
