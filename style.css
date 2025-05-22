@@ -14,8 +14,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
-    padding-top: 70px;
-    /* Adjust this value based on your header height */
+    padding-top: 0;
 }
 
 html {
@@ -52,7 +51,7 @@ html {
 }
 
 #main-header .logo {
-    font-size: 1.8em;
+    font-size: 2.4em;
     font-weight: bold;
     text-decoration: none;
     background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
@@ -60,7 +59,11 @@ html {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: var(--primary-purple);
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#main-header.scrolled .logo {
+    font-size: 1.8em;
 }
 
 #main-header .logo:hover {
@@ -134,21 +137,17 @@ section h2 {
 
 /* Hero Section */
 #hero {
-    min-height: 100vh;
-    /* Full viewport height */
+    height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: var(--background-color);
-    /* Solid black background */
     text-align: center;
-    padding: 0 2rem;
-    /* Remove default section padding if it causes overflow */
+    padding: 2rem;
     position: relative;
-    /* Added for canvas positioning */
     overflow: hidden;
-    /* To contain particles within the hero section */
+    margin-top: 70px;
 }
 
 #hero-canvas {
@@ -158,19 +157,25 @@ section h2 {
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* Behind hero content */
+    pointer-events: none;
 }
 
 #hero .hero-content {
     position: relative;
-    /* Ensure content is above canvas */
     z-index: 2;
-    /* Above canvas */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 #hero h1 {
     font-size: 4.5em;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
     font-family: 'Space Grotesk', 'Satoshi', sans-serif;
     text-shadow: 0 0 15px rgba(106, 13, 173, 0.7), 0 0 25px rgba(106, 13, 173, 0.5);
     transition: transform 0.3s ease-in-out;
@@ -179,6 +184,10 @@ section h2 {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
+    text-align: center;
+    line-height: 1.2;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 #hero .subtitle {
@@ -195,14 +204,13 @@ section h2 {
 }
 
 #hero h1:hover {
-    transform: scale(1.05);
-    /* Scale up on hover */
+    transform: scale(1.02) translateZ(0);
 }
 
 #hero .hero-description {
     font-size: 1.7em;
-    max-width: 700px;
-    margin-bottom: 2rem;
+    max-width: 800px;
+    margin: 0 auto 2.5rem;
     font-family: 'Aeonik Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-weight: 500;
     background-image: linear-gradient(to right, #888888, #cccccc, #888888);
@@ -211,6 +219,7 @@ section h2 {
     -webkit-text-fill-color: transparent;
     color: transparent;
     line-height: 1.4;
+    text-align: center;
 }
 
 /* Slogan in Hero Section */
@@ -231,15 +240,12 @@ section h2 {
 
 /* Hero CTA Buttons */
 .hero-cta-buttons {
-    margin-top: 2rem;
-    /* Space above buttons */
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    /* Space between buttons */
-    flex-wrap: wrap;
-    /* Allow buttons to wrap on smaller screens if needed */
+    margin-top: 1rem;
+    width: 100%;
 }
 
 .cta-button {
@@ -928,7 +934,7 @@ footer {
     }
 
     #hero h1 {
-        font-size: 2.8em;
+        font-size: 3em;
     }
     
     #hero .subtitle {
@@ -936,7 +942,8 @@ footer {
     }
 
     #hero .hero-description {
-        font-size: 1.1em;
+        font-size: 1.4em;
+        max-width: 600px;
     }
 
     section {
@@ -1005,7 +1012,8 @@ footer {
     }
 
     #hero .hero-description {
-        font-size: 1em;
+        font-size: 1.2em;
+        max-width: 100%;
     }
 
     #hero p {

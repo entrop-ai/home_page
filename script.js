@@ -367,22 +367,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Add scroll event listener for navbar background transition
-    const header = document.getElementById('main-header');
-    let lastScroll = 0;
-
-    function handleScroll() {
-        const currentScroll = window.pageYOffset;
-        if (currentScroll > 50) {
+    // Handle navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
-        lastScroll = currentScroll;
-    }
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial check
+    });
 
     // Overview cells interaction
     const overviewCells = document.querySelectorAll('.overview-cell');
