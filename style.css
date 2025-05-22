@@ -169,22 +169,29 @@ section h2 {
 }
 
 #hero h1 {
-    font-size: 5.5em;
+    font-size: 4.5em;
     margin-bottom: 0.5rem;
-    /* color: var(--text-color); */
-    /* Replaced by gradient */
     font-family: 'Space Grotesk', 'Satoshi', sans-serif;
-    /* Updated font */
     text-shadow: 0 0 15px rgba(106, 13, 173, 0.7), 0 0 25px rgba(106, 13, 173, 0.5);
-    /* Added text shadow */
     transition: transform 0.3s ease-in-out;
-    /* Added transition for hover effect */
     background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    /* Fallback for browsers that don't support background-clip: text */
+}
+
+#hero .subtitle {
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
+    text-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 #hero h1:hover {
@@ -192,13 +199,18 @@ section h2 {
     /* Scale up on hover */
 }
 
-#hero p {
+#hero .hero-description {
     font-size: 1.7em;
     max-width: 700px;
-    color: #ccc;
-    /* Lighter gray for subtitle */
     margin-bottom: 2rem;
-    /* Added to give space for buttons */
+    font-family: 'Aeonik Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    background-image: linear-gradient(to right, #888888, #cccccc, #888888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    line-height: 1.4;
 }
 
 /* Slogan in Hero Section */
@@ -291,177 +303,428 @@ section h2 {
 }
 
 /* Overview Section */
-#overview .overview-content {
-    max-width: 1200px;
-    /* Increased for grid layout */
-    margin: 0 auto;
-    text-align: left;
-    /* Content within (like paragraphs) will be left-aligned */
+#overview {
+    background-color: #f5f5f5;
+    color: #333333;
+}
+
+#overview h2 {
+    font-size: 3.5em;
+    margin-bottom: 2rem;
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
+    color: #000000;
+    transition: transform 0.3s ease-in-out;
+    line-height: 1.2;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#overview h2:hover {
+    transform: scale(1.05);
+}
+
+.overview-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.overview-cell {
+    background-color: #f5f5f5;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+.overview-cell::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background-color: #333333;
+    transition: all 0.3s ease;
+}
+
+.overview-cell::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.overview-cell:hover {
+    transform: translateY(-3px) translateZ(0);
+}
+
+.overview-cell:hover::before {
+    background-color: #666666;
+    top: 0;
+    height: 100%;
+}
+
+.overview-cell:hover::after {
+    opacity: 1;
+}
+
+.cell-content {
+    padding: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
     gap: 2rem;
 }
 
-/* Style for introductory paragraphs in the overview section */
-#overview .overview-content>p:first-of-type {
-    grid-column: 1 / -1;
-    /* Span full width of the grid */
-    font-size: 1.6em;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    /* Space between the two paragraphs */
-    text-align: center;
+.icon-placeholder {
+    flex: 0 0 33.333%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    height: 100%;
+    min-height: 120px;
 }
 
-#overview .overview-content>p:first-of-type strong {
-    background-image: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    /* Fallback */
-    font-weight: 700;
-    /* Ensure it's appropriately bold */
+.icon-placeholder img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: brightness(0.2);
+    transition: filter 0.3s ease;
+    display: block;
 }
 
-#overview .overview-content>p:nth-of-type(2) {
-    grid-column: 1 / -1;
-    /* Span full width of the grid */
-    font-size: 1.25em;
-    line-height: 1.8;
-    color: #f0f0f0;
-    margin-bottom: 3.5rem;
-    text-align: center;
-}
-
-#overview h3 {
-    color: var(--primary-purple);
-    font-size: 1.8em;
-    margin-top: 2rem;
-}
-
-#overview ul {
-    list-style: disc;
-    margin-left: 2rem;
-}
-
-#overview ul li {
-    margin-bottom: 0.5rem;
-}
-
-/* Enhancements for Overview Section Cards */
-#overview .overview-card {
-    background-color: #24242c;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-top-color 0.3s ease;
+.cell-text-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    border-top: 3px solid transparent;
+    justify-content: center;
+    min-height: 120px;
 }
 
-#overview .overview-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(147, 112, 219, 0.35);
-    border-top-color: var(--gradient-purple);
-    border-image-source: linear-gradient(to right, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
-    border-image-slice: 1;
-    border-image-width: 3px 0 0 0;
-    border-image-outset: 0;
-    border-image-repeat: stretch;
+.overview-cell h3 {
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
+    font-size: 1.5em;
+    margin: 0 0 1rem 0;
+    color: #333333;
+    line-height: 1.4;
+    font-weight: 600;
 }
 
-#overview .overview-card h3 {
-    font-size: 1.9em;
-    margin-top: 0;
-    margin-bottom: 1.2rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 2px solid var(--gradient-purple);
-    /* Changed for a lighter purple gradient */
-    background-image: linear-gradient(to right, var(--gradient-purple), #A47EEA, var(--gradient-purple));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    /* Fallback */
+.cell-description {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#overview .overview-card ul {
-    list-style: none;
-    padding-left: 0;
-    margin-left: 0;
-    margin-bottom: 0;
-    flex-grow: 1;
+.overview-cell:hover .cell-description,
+.overview-cell.active .cell-description {
+    opacity: 1;
+    max-height: 200px;
 }
 
-#overview .overview-card ul li {
-    margin-bottom: 1rem;
-    padding-left: 2rem;
-    position: relative;
+.cell-description p {
+    color: #666666;
+    font-size: 1.2em;
     line-height: 1.6;
+    margin: 0;
+    font-weight: 400;
+    font-family: 'Inter', sans-serif;
 }
 
-#overview .overview-card ul li::before {
-    content: '✓';
-    color: var(--gradient-blue);
-    position: absolute;
-    left: 0.25rem;
-    top: 0;
-    font-weight: bold;
-    font-size: 1.3em;
-    line-height: inherit;
+@media (max-width: 1024px) {
+    .overview-grid {
+        gap: 1.5rem;
+        padding: 1.5rem;
+    }
+
+    .overview-cell h3 {
+        font-size: 1.3em;
+    }
+
+    .cell-description p {
+        font-size: 1.1em;
+    }
+
+    .icon-placeholder img {
+        width: 70px;
+        height: 70px;
+    }
+
+    #overview h2 {
+        font-size: 3em;
+    }
+}
+
+@media (max-width: 768px) {
+    .overview-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 1.5rem;
+    }
+
+    .overview-cell {
+        min-height: 180px;
+    }
+
+    .cell-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .icon-placeholder {
+        flex: 0 0 auto;
+        min-height: 100px;
+    }
+
+    .cell-text-content {
+        min-height: auto;
+    }
+
+    .overview-cell h3 {
+        font-size: 1.3em;
+    }
+
+    .cell-description p {
+        font-size: 1.1em;
+    }
+
+    #overview h2 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    #overview h2 {
+        font-size: 2.2em;
+    }
 }
 
 /* Meet the Team Section */
-#team .team-container {
+#team {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 8rem 2rem;
+    position: relative;
+    overflow: hidden;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Add this to reduce the empty space below the team section */
-#team {
-    min-height: auto;
-    /* Override the default section min-height */
-    padding-bottom: 4rem;
-    /* Ensure some padding remains, adjust as needed */
+#team h2 {
+    font-size: 3.5em;
+    margin-bottom: 3rem;
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-align: center;
+    line-height: 1.2;
+    max-width: 1000px;
+}
+
+#team .team-description {
+    max-width: 1000px;
+    margin: 0 auto 5rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+#team .team-description p {
+    font-size: 1.5em;
+    color: #ffffff;
+    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+#team .team-description p:last-child {
+    margin-bottom: 0;
+}
+
+#team .team-description strong {
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 600;
+}
+
+.team-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    width: 100%;
 }
 
 .team-member {
-    background-color: #1a1a1a;
-    padding: 2rem;
-    border-radius: 10px;
-    width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
 }
 
 .team-member:hover {
     transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(106, 13, 173, 0.5);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.team-member:hover::before {
+    opacity: 0.1;
 }
 
 .team-member-placeholder {
-    width: 150px;
-    height: 150px;
-    background-color: var(--primary-purple);
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 2rem;
     border-radius: 50%;
-    margin: 0 auto 1rem auto;
+    background: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 1.2em;
+    justify-content: center;
+    font-size: 3em;
     color: var(--text-color);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .team-member h3 {
-    font-size: 1.5em;
-    color: var(--primary-purple);
-    margin-bottom: 0.5rem;
+    font-size: 2.2em;
+    margin-bottom: 1.5rem;
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
+    background-image: linear-gradient(45deg, var(--gradient-orange), var(--gradient-purple), var(--gradient-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+.team-member p {
+    font-size: 1.4em;
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 1024px) {
+    #team h2 {
+        font-size: 4em;
+    }
+
+    #team .team-description p {
+        font-size: 2.2em;
+    }
+}
+
+@media (max-width: 768px) {
+    #team {
+        padding: 6rem 1.5rem;
+    }
+
+    #team h2 {
+        font-size: 3.5em;
+    }
+
+    #team .team-description {
+        padding: 2.5rem;
+        margin-bottom: 4rem;
+    }
+
+    #team .team-description p {
+        font-size: 2em;
+    }
+
+    .team-container {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+
+    .team-member {
+        padding: 2.5rem;
+    }
+
+    .team-member h3 {
+        font-size: 1.8em;
+    }
+
+    .team-member p {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    #team h2 {
+        font-size: 3em;
+    }
+
+    #team .team-description p {
+        font-size: 1.8em;
+    }
 }
 
 /* Contact Us Section */
@@ -666,12 +929,14 @@ footer {
 
     #hero h1 {
         font-size: 2.8em;
-        /* Further refined from 3em */
+    }
+    
+    #hero .subtitle {
+        font-size: 1.8em;
     }
 
-    #hero p {
+    #hero .hero-description {
         font-size: 1.1em;
-        /* Further refined from 1.2em */
     }
 
     section {
@@ -734,6 +999,14 @@ footer {
     #hero h1 {
         font-size: 2.5em;
     }
+    
+    #hero .subtitle {
+        font-size: 1.5em;
+    }
+
+    #hero .hero-description {
+        font-size: 1em;
+    }
 
     #hero p {
         font-size: 1em;
@@ -765,7 +1038,7 @@ footer {
     background-color: var(--primary-purple);
     color: var(--text-color);
     border: none;
-    font-family: inherit;
+    font-family: 'Space Grotesk', 'Satoshi', sans-serif;
     padding: 0;
     border-radius: 3rem;
     font-size: 1.2rem;
