@@ -26,27 +26,19 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault(); // Always prevent default submission now
 
-            const emailInput = document.getElementById('email');
             const messageInput = document.getElementById('message');
-            const email = emailInput.value.trim();
             const message = messageInput.value.trim();
             let isValid = true;
 
-            if (email === '') {
-                alert('Please enter your email.');
-                isValid = false;
-            } else if (!validateEmail(email)) {
-                alert('Please enter a valid email address.');
-                isValid = false;
-            }
+
             if (message === '') {
                 alert('Please enter your message.');
                 isValid = false;
             }
 
             if (isValid) {
-                const recipientEmail = 'entropaisk@gmail.co';
-                const subject = `Inquiry from EntropAI Website - from: ${email}`;
+                const recipientEmail = 'entropaisk@gmail.com';
+                const subject = `We are interested! 🚀`;
                 const body = message;
 
                 // Encode components for the mailto URL
@@ -59,10 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
 
     // Active navigation link highlighting on scroll
     const sections = document.querySelectorAll('main section');
