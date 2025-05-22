@@ -383,4 +383,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
+
+    // Overview cells interaction
+    const overviewCells = document.querySelectorAll('.overview-cell');
+    overviewCells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            // Remove active class from all cells
+            overviewCells.forEach(c => c.classList.remove('active'));
+            // Add active class to clicked cell
+            cell.classList.add('active');
+        });
+    });
+
+    // Close cell description when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.overview-cell')) {
+            overviewCells.forEach(cell => cell.classList.remove('active'));
+        }
+    });
 }); 
