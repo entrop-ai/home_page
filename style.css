@@ -417,11 +417,13 @@ section h2 {
     line-height: inherit;
 }
 
-/* Make li clickable and add underline on hover */
-#overview .overview-card ul li:hover>a.overview-card-link,
-#overview .overview-card ul li:hover>.info-icon {
+/* Make li clickable and add underline */
+#overview .overview-card ul li>.clickable-content {
     text-decoration: underline;
-    text-decoration-color: white;
+    text-decoration-color: #aaa;
+    /* Less dominant color */
+    text-underline-offset: 0.2em;
+    /* Lower the underline */
 }
 
 /* Styles for toggleable info in overview cards */
