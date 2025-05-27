@@ -394,4 +394,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Randomly rotate scattered phrases in Overview section - REMOVED
+    // const scatteredPhrases = document.querySelectorAll('.scattered-phrase');
+    // scatteredPhrases.forEach(phrase => {
+    // const randomRotation = Math.random() * 30 - 15; // -15 to +15 degrees
+    // phrase.style.transform = `rotate(${randomRotation}deg)`;
+    // });
+
 }); 

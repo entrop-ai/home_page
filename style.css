@@ -339,6 +339,56 @@ section h2 {
     text-align: center;
 }
 
+/* Styles for Scattered Text in Overview Section */
+.scattered-text-container {
+    grid-column: 1 / -1;
+    /* Span full width */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    /* Gap between phrases */
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    /* Space below the scattered text */
+    min-height: 150px;
+    /* Give some space for scattering */
+    position: relative;
+    /* For absolute positioning of children if needed, though flex might be enough */
+}
+
+.scattered-phrase {
+    font-size: 1.2em;
+    /* Adjust as needed */
+    color: #e0e0e0;
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Subtle background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    /* Important for transform */
+    transition: transform 0.3s ease;
+}
+
+/* Apply fixed rotations to each scattered phrase */
+.scattered-phrase:nth-child(1) {
+    transform: rotate(-5deg);
+}
+
+.scattered-phrase:nth-child(2) {
+    transform: rotate(8deg);
+}
+
+.scattered-phrase:nth-child(3) {
+    transform: rotate(-3deg);
+}
+
+.scattered-phrase:nth-child(4) {
+    transform: rotate(6deg);
+}
+
 #overview h3 {
     color: var(--primary-purple);
     font-size: 1.8em;
