@@ -385,11 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScroll(); // Initial check
 
     // Toggle functionality for overview card info
-    const infoIcons = document.querySelectorAll('.info-icon');
-    infoIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
-            const infoText = icon.previousElementSibling;
-            if (infoText && infoText.classList.contains('toggle-info')) {
+    const overviewListItems = document.querySelectorAll('#overview .overview-card ul li');
+    overviewListItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const infoText = item.querySelector('.toggle-info');
+            if (infoText) {
                 infoText.classList.toggle('visible');
             }
         });

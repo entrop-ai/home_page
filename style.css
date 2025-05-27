@@ -403,6 +403,7 @@ section h2 {
     padding-left: 2rem;
     position: relative;
     line-height: 1.6;
+    cursor: pointer;
 }
 
 #overview .overview-card ul li::before {
@@ -414,6 +415,13 @@ section h2 {
     font-weight: bold;
     font-size: 1.3em;
     line-height: inherit;
+}
+
+/* Make li clickable and add underline on hover */
+#overview .overview-card ul li:hover>a.overview-card-link,
+#overview .overview-card ul li:hover>.info-icon {
+    text-decoration: underline;
+    text-decoration-color: white;
 }
 
 /* Styles for toggleable info in overview cards */
