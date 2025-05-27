@@ -436,16 +436,17 @@ section h2 {
     width: 32px;
     height: 32px;
     transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
+    filter: invert(1);
 }
 
 .info-icon:hover img {
     transform: scale(1.15);
-    filter: brightness(1.2);
+    filter: invert(1) brightness(1.2);
 }
 
 .info-icon:active img {
     transform: scale(1.05);
-    filter: brightness(0.9);
+    filter: invert(1) brightness(0.9);
 }
 
 .toggle-info.visible {
