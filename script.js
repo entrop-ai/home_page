@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let mouse = {
             x: null,
             y: null,
-            radius: 100 // Interaction radius in pixels (hover area around cursor)
+            radius: 120 // Interaction radius in pixels (hover area around cursor)
         };
 
         canvas.addEventListener('mousemove', (event) => {
@@ -263,14 +263,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function initParticles() {
             particlesArray = [];
             // Adjust density: lower number means more particles
-            const totalNumberOfParticles = (canvas.height * canvas.width) / 8000;
+            const totalNumberOfParticles = (canvas.height * canvas.width) / 5000;
 
-            const numBackgroundParticles = Math.floor(totalNumberOfParticles * 0.35); // 35% for background
-            const numForegroundParticles = totalNumberOfParticles - numBackgroundParticles; // 65% for foreground
+            const numBackgroundParticles = Math.floor(totalNumberOfParticles * 0.25); // 25% for background
+            const numForegroundParticles = totalNumberOfParticles - numBackgroundParticles; // 75% for foreground
 
             // Colors with varied alpha for depth
             const bgColors = ['rgba(106, 13, 173, 0.15)', 'rgba(106, 13, 173, 0.25)', 'rgba(255, 255, 255, 0.1)', 'rgba(128, 0, 128, 0.2)'];
-            const fgColors = ['rgba(106, 13, 173, 0.35)', 'rgba(106, 13, 173, 0.55)', 'rgba(255, 255, 255, 0.25)', 'rgba(128, 0, 128, 0.45)'];
+            const fgColors = ['rgba(106, 13, 173, 0.6)', 'rgba(106, 13, 173, 0.75)', 'rgba(255, 255, 255, 0.4)', 'rgba(128, 0, 128, 0.65)'];
 
             // Background particles (larger, slower)
             for (let i = 0; i < numBackgroundParticles; i++) {
@@ -288,8 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const size = Math.random() * 2 + 1; // Size: 1 to 3
                 const x = Math.random() * (canvas.width - size * 2) + size;
                 const y = Math.random() * (canvas.height - size * 2) + size;
-                const directionX = (Math.random() * 0.7) - 0.35; // Faster: -0.35 to 0.35 px/frame
-                const directionY = (Math.random() * 0.7) - 0.35;
+                const directionX = (Math.random() * 1.5) - 0.75; // Faster: -0.75 to 0.75 px/frame
+                const directionY = (Math.random() * 1.5) - 0.75;
                 const color = fgColors[Math.floor(Math.random() * fgColors.length)];
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color, 'foreground'));
             }
