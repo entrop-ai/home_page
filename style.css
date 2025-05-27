@@ -303,6 +303,8 @@ section h2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
+    align-items: start;
+    /* Prevent cards from stretching to match tallest card in row */
 }
 
 /* Style for introductory paragraphs in the overview section */
