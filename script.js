@@ -402,4 +402,102 @@ document.addEventListener('DOMContentLoaded', () => {
     // phrase.style.transform = `rotate(${randomRotation}deg)`;
     // });
 
+    // Frog jump animation for agent icon
+    const agentIcon = document.getElementById('agent-icon');
+    const scatteredPhrases = document.querySelectorAll('.scattered-phrase');
+    const scatteredContainer = document.querySelector('.scattered-text-container');
+
+    if (agentIcon && scatteredPhrases.length > 0 && scatteredContainer) {
+        let currentPhraseIndex = -1; // Start before the first phrase
+        let isJumping = false;
+
+        // Ensure container is positioned for absolute children
+        if (getComputedStyle(scatteredContainer).position === 'static') {
+            scatteredContainer.style.position = 'relative';
+        }
+
+        function jumpToNextPhrase() {
+            if (isJumping) return; // Don't jump if already jumping
+            isJumping = true;
+
+            let nextPhraseIndex;
+            do {
+                nextPhraseIndex = Math.floor(Math.random() * scatteredPhrases.length);
+            } while (nextPhraseIndex === currentPhraseIndex && scatteredPhrases.length > 1);
+
+            const targetPhrase = scatteredPhrases[nextPhraseIndex];
+            currentPhraseIndex = nextPhraseIndex;
+
+            const containerRect = scatteredContainer.getBoundingClientRect();
+            const targetRect = targetPhrase.getBoundingClientRect();
+            const agentRect = agentIcon.getBoundingClientRect();
+
+            // Calculate target position relative to the container
+            const targetX = targetRect.left - containerRect.left + (targetRect.width / 2) - (agentRect.width / 2);
+            const targetY = targetRect.top - containerRect.top - agentRect.height; // Position above the phrase
+
+            // Calculate current position relative to the container (or initialize if first jump)
+            const currentX = (agentIcon.style.left === '') ? targetX : parseFloat(agentIcon.style.left);
+            const currentY = (agentIcon.style.top === '') ? targetY : parseFloat(agentIcon.style.top);
+
+            // Determine jump direction for rotation
+            const deltaX = targetX - currentX;
+            const angle = Math.atan2(0, deltaX) * (180 / Math.PI); // Simplified angle for horizontal jump
+            // Add a slight rotation to simulate looking towards the target
+            // If deltaX is positive (jumping right), rotate slightly right. If negative (jumping left), rotate slightly left.
+            const rotation = deltaX > 0 ? 15 : (deltaX < 0 ? -15 : 0);
+
+            // Mid-point for arc (higher than start/end)
+            const midX = currentX + (targetX - currentX) / 2;
+            const midY = Math.min(currentY, targetY) - 50; // 50px jump height
+
+            // GSAP animation for smoother arc and rotation
+            if (typeof gsap !== 'undefined') {
+                gsap.timeline({
+                    onComplete: () => {
+                        isJumping = false;
+                        setTimeout(jumpToNextPhrase, Math.random() * 3000 + 2000); // Random delay for next jump
+                    }
+                })
+                    .to(agentIcon, {
+                        duration: 0.4, // Duration to reach peak
+                        left: midX + 'px',
+                        top: midY + 'px',
+                        rotation: rotation, // Apply rotation during ascent
+                        ease: 'power1.out'
+                    })
+                    .to(agentIcon, {
+                        duration: 0.4, // Duration to land
+                        left: targetX + 'px',
+                        top: targetY + 'px',
+                        rotation: 0, // Reset rotation on land
+                        ease: 'power1.in'
+                    });
+            } else {
+                // Fallback to CSS transitions if GSAP is not available
+                agentIcon.style.transform = `rotate(${rotation}deg) translateY(-50px)`; // Initial jump up and rotate
+                setTimeout(() => {
+                    agentIcon.style.left = targetX + 'px';
+                    agentIcon.style.top = targetY + 'px';
+                    agentIcon.style.transform = 'rotate(0deg) translateY(0px)'; // Land and reset rotation
+                    isJumping = false;
+                    setTimeout(jumpToNextPhrase, Math.random() * 3000 + 2000); // Random delay
+                }, 500); // Corresponds to CSS transition duration
+            }
+        }
+
+        // Initial position above the first phrase (or a random one if preferred)
+        if (scatteredPhrases.length > 0) {
+            const initialPhrase = scatteredPhrases[0];
+            const containerRect = scatteredContainer.getBoundingClientRect();
+            const initialRect = initialPhrase.getBoundingClientRect();
+            const agentRect = agentIcon.getBoundingClientRect();
+
+            agentIcon.style.left = (initialRect.left - containerRect.left + (initialRect.width / 2) - (agentRect.width / 2)) + 'px';
+            agentIcon.style.top = (initialRect.top - containerRect.top - agentRect.height) + 'px';
+        }
+
+        setTimeout(jumpToNextPhrase, 2000); // Start the first jump after a delay
+    }
+
 }); 
