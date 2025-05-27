@@ -263,9 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function initParticles() {
             particlesArray = [];
             // Adjust density: lower number means more particles
-            const totalNumberOfParticles = (canvas.height * canvas.width) / 5000;
+            const totalNumberOfParticles = (canvas.height * canvas.width) / 6000;
 
-            const numBackgroundParticles = Math.floor(totalNumberOfParticles * 0.25); // 25% for background
+            const numBackgroundParticles = Math.floor(totalNumberOfParticles * 0.30); // 25% for background
             const numForegroundParticles = totalNumberOfParticles - numBackgroundParticles; // 75% for foreground
 
             // Colors with varied alpha for depth
@@ -288,8 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const size = Math.random() * 2 + 1; // Size: 1 to 3
                 const x = Math.random() * (canvas.width - size * 2) + size;
                 const y = Math.random() * (canvas.height - size * 2) + size;
-                const directionX = (Math.random() * 1.5) - 0.75; // Faster: -0.75 to 0.75 px/frame
-                const directionY = (Math.random() * 1.5) - 0.75;
+                const directionX = (Math.random() * 0.9) - 0.45; // Faster: -0.75 to 0.75 px/frame
+                const directionY = (Math.random() * 0.9) - 0.45;
                 const color = fgColors[Math.floor(Math.random() * fgColors.length)];
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color, 'foreground'));
             }
