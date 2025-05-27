@@ -424,6 +424,15 @@ section h2 {
     /* Less dominant color */
     text-underline-offset: 0.2em;
     /* Lower the underline */
+    display: inline-block;
+    /* Added for transform and layout consistency */
+    transition: transform 0.2s ease-in-out;
+    /* Added for smooth scaling */
+}
+
+#overview .overview-card ul li:hover>.clickable-content {
+    transform: scale(1.05);
+    /* Apply pop-up effect to the whole clickable content */
 }
 
 /* Styles for toggleable info in overview cards */
