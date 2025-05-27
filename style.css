@@ -472,6 +472,14 @@ section h2 {
     /* Ensure some padding remains, adjust as needed */
 }
 
+#team>p.gradient-text {
+    text-align: center;
+    max-width: 700px;
+    /* Make the paragraph narrower */
+    margin: 0 auto 2rem auto;
+    /* Center the block and add some bottom margin */
+}
+
 .team-member {
     background-color: #1a1a1a;
     padding: 2rem;
