@@ -112,6 +112,7 @@ html {
 
 #main-header nav ul li a.active::after {
     width: 100%;
+    background-color: var(--gradient-orange);
 }
 
 section {
@@ -434,11 +435,17 @@ section h2 {
 .info-icon img {
     width: 32px;
     height: 32px;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
 
 .info-icon:hover img {
-    transform: scale(1.1);
+    transform: scale(1.15);
+    filter: brightness(1.2);
+}
+
+.info-icon:active img {
+    transform: scale(1.05);
+    filter: brightness(0.9);
 }
 
 .toggle-info.visible {
