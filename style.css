@@ -413,6 +413,39 @@ section h2 {
     line-height: inherit;
 }
 
+/* Styles for toggleable info in overview cards */
+.toggle-info {
+    display: none;
+    /* Initially hidden */
+}
+
+.info-icon {
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 8px;
+    /* color: var(--gradient-blue); */
+    /* No longer needed for text color */
+    display: inline-block;
+    /* Allows for better spacing and potential future styling */
+    vertical-align: middle;
+    /* Align icon with text */
+}
+
+.info-icon img {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.info-icon:hover img {
+    transform: scale(1.1);
+}
+
+.toggle-info.visible {
+    display: inline;
+    /* Show when icon is clicked */
+}
+
 /* Meet the Team Section */
 #team .team-container {
     display: flex;

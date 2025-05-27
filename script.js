@@ -383,4 +383,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Initial check
+
+    // Toggle functionality for overview card info
+    const infoIcons = document.querySelectorAll('.info-icon');
+    infoIcons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            const infoText = icon.previousElementSibling;
+            if (infoText && infoText.classList.contains('toggle-info')) {
+                infoText.classList.toggle('visible');
+            }
+        });
+    });
 }); 
